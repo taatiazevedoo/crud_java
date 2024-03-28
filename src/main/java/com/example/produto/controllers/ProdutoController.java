@@ -44,4 +44,10 @@ public class ProdutoController {
         service.deleteProduto(idProduto);
         return ResponseEntity.ok("Produto deletado com sucesso!");
     }
+
+    @GetMapping("getProdutoByCodigo")
+    public ResponseEntity<ProdutoDTO> getProdutoByCodigo(String codigo) {
+        ProdutoDTO produtoDTO = service.getProdutoByCodigo(codigo);
+        return ResponseEntity.ok().body(produtoDTO);
+    }
 }

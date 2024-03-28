@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -103,5 +104,14 @@ public class ProdutoService implements IProdutoService {
             logger.error("Erro ao deletar o produto ID: " + idProduto);
             throw e;
         }
+    }
+
+    public ProdutoDTO getProdutoByCodigo(String codigo) {
+        Optional<Produto> produto = produtoRepository.findProdutoByCodigo(codigo);
+        if (produto.isEmpty()) {
+            throw new NotFoundGrupoProdutoException("Produto não encontrado com código : " + codigo);
+        }
+
+        return new ProdutoDTO(produto.get());
     }
 }
